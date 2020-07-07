@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProjectProduk
+namespace ProjectCustomer
 {
     class Program
     {
-        static List<Produk> daftarProduk = new List<Produk>();
+        // deklarasi objek collection untuk menampung objek customer
+        static List<Customer> daftarCustomer = new List<Customer>();
 
         static void Main(string[] args)
         {
             Console.Title = "Responsi UAS Matakuliah Pemrograman";
-            bool loop = true;
-            while (loop)
+
+            while (true)
             {
                 TampilMenu();
 
@@ -23,24 +24,21 @@ namespace ProjectProduk
                 switch (nomorMenu)
                 {
                     case 1:
-                        TambahProduk();
+                        TambahCustomer();
                         break;
 
                     case 2:
-                        HapusProduk();
+                        HapusCustomer();
                         break;
 
                     case 3:
-                        TampilProduk();
+                        TampilCustomer();
                         break;
 
-                    case 4:
-                        loop = false;
-                        break;
+                    case 4: // keluar dari program
+                        return;
 
                     default:
-                        Console.Clear();
-                        Console.WriteLine("Maaf, menu yang anda pilih tidak tersedia");
                         break;
                 }
             }
@@ -50,75 +48,72 @@ namespace ProjectProduk
         {
             Console.Clear();
             Console.WriteLine("Pilih menu Aplikasi");
-            Console.WriteLine("\n1. Tambah Produk");
-            Console.WriteLine("2. Hapus Produk");
-            Console.WriteLine("3. Tampilkan Produk");
+            Console.WriteLine("\n1. Tambah Customer");
+            Console.WriteLine("2. Hapus Customer");
+            Console.WriteLine("3. Tampilkan Customer");
             Console.WriteLine("4. Keluar");
         }
 
-        static void TambahProduk()
+        static void TambahCustomer()
         {
             Console.Clear();
 
-            Produk produk = new Produk();
-            Console.WriteLine("Tambah Data Produk");
-            Console.Write("\nKode Produk : ");
-            produk.KodeProduk = Console.ReadLine();
-            Console.Write("Nama Produk : ");
-            produk.NamaProduk = Console.ReadLine();
-            Console.Write("Harga Beli : ");
-            produk.HargaBeli = double.Parse(Console.ReadLine());
-            Console.Write("Harga Jual : ");
-            produk.HargaJual = double.Parse(Console.ReadLine());
+            Customer customer = new Customer();
+            Console.WriteLine("Tambah Data Customer");
+            Console.Write("\nKDE COSTUMER : ");
+            customer.KodeCustomer = Console.ReadLine();
+            Console.Write("NAMA COSTUMER : ");
+            customer.NamaCustomer = Console.ReadLine();
+            Console.Write("TOTAL PIUTANG : ");
+            customer.Piutang = Convert.ToDouble(Console.ReadLine());
+            daftarCustomer.Add(customer);
+
 
             Console.WriteLine("\nTekan ENTER untuk kembali ke menu");
             Console.ReadKey();
         }
 
-        static void HapusProduk()
+        static void HapusCustomer()
         {
             Console.Clear();
 
             int no = -1, hapus = -1;
-            Console.WriteLine("Hapus Data Produk");
-            Console.Write("Kode Produk : ");
+            Console.WriteLine("Hapus Data Customer");
+            Console.Write("Kode Customer : ");
             string kode = Console.ReadLine();
-            foreach (Produk produk in daftarProduk)
+            foreach (Customer customer in daftarCustomer)
             {
                 no++;
-                if(produk.KodeProduk == kode)
+                if (customer.KodeCustomer == kode)
                 {
                     hapus = no;
                 }
             }
             if (hapus != -1)
             {
-                daftarProduk.RemoveAt(hapus);
-                Console.WriteLine("\nData produk berhasil di hapus");
+                daftarCustomer.RemoveAt(hapus);
+                Console.WriteLine("\nData customer berhasil di hapus");
             }
             else
             {
-                Console.WriteLine("\nKode produk tidak ditemukan");
+                Console.WriteLine("\nKode customer tidak ditemukan");
             }
 
             Console.WriteLine("\nTekan ENTER untuk kembali ke menu");
             Console.ReadKey();
         }
 
-        static void TampilProduk()
+        static void TampilCustomer()
         {
             Console.Clear();
-
+            Console.Clear();
+            Console.WriteLine("Data Customer\n");
             int noUrut = 0;
-            Console.WriteLine("Data Produk");
-            foreach (Produk produk in daftarProduk)
+
+            foreach (Customer customer in daftarCustomer)
             {
                 noUrut++;
-                Console.WriteLine("{0}. Kode Produk: {1}, Nama Produk: {2}, Harga Beli: {3}, Harga Jual: {4}", noUrut, produk.KodeProduk, produk.NamaProduk, produk.HargaBeli, produk.HargaJual);
-            }
-            if (noUrut < 1)
-            {
-                Console.WriteLine("Data Produk Kosong");
+                Console.WriteLine("{0}. Kode Customer : {1} - Nama Customer : {2} - Total Piutang : {3:N0}", noUrut, customer.KodeCustomer, customer.NamaCustomer, customer.Piutang);
             }
 
             Console.WriteLine("\nTekan enter untuk kembali ke menu");
